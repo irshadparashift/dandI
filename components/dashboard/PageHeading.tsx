@@ -98,7 +98,7 @@ export default function PageHeading({ isDesktop }: PageHeadingProps) {
     if (!isDesktop) {
       window.dispatchEvent(new CustomEvent('toggleMobileSidebar'));
     }
-  };                    
+  };
 
   const getPageTitle = (): string => {
     if (subRoute && !isNaN(Number(subRoute))) {
@@ -107,8 +107,8 @@ export default function PageHeading({ isDesktop }: PageHeadingProps) {
       const subLabel: string = routeToLabel[subRoute] || subRoute;
       return `${mainLabel} - ${subLabel}`;
     }
-    return mainLabel; 
-  };                                 
+    return mainLabel;
+  };
 
   return (
     <header className="w-full px-4 py-3 md:px-6 md:py-4 text-white brandBg fixed top-0 z-10 ">
@@ -123,7 +123,7 @@ export default function PageHeading({ isDesktop }: PageHeadingProps) {
               <FaBars className="w-5 h-5" />
             </button>
           )}
-  
+
           <div className="min-w-0 flex-1">
             <h1 className="text-xl md:text-2xl lg:text-3xl font-semibold text-white truncate">
               {getPageTitle()}

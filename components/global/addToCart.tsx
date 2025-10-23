@@ -1529,7 +1529,7 @@ const CartPage = () => {
   const [createCheckoutSession] = useCreateCheckoutSessionMutation();
   const userId = getCookie('UserId');
 
-  // Move API hooks to top level                                
+  // Move API hooks to top level
   const [addToCartApi] = useAddToCartMutation();
   const [removeQuantityApi] = useRemoveQuantityMutation();
   const [clearAllCartApi] = useClearAllCartMutation();

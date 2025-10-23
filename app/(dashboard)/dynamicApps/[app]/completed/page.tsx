@@ -326,8 +326,6 @@
 //     </div>
 //   );
 // }
-
-// ==========================
 'use client';
 
 import ResultPage from '@/components/results/ResultPage';
@@ -340,6 +338,7 @@ import { useDispatch, useSelector } from 'react-redux';
 // import { RootState } from '@/redux/store';
 import { setResultData } from '@/redux/slices/global/globalSlice';
 // import { useEffect } from 'react';
+import Advice from '@/components/results/Advice';
 
 const tabs = [
   { id: 'results', label: 'Results' },
@@ -496,9 +495,11 @@ export default function SuggestedCourses() {
       {activeTab === 'advice' && (
         <div className="text-gray-600 text-center mt-10">
           {resultData?.data.AdviceMessage ? (
-            <p>{resultData.data.AdviceMessage}</p>
+            // <p>{resultData.data.AdviceMessage}</p>
+            <Advice />
           ) : (
-            <p>💡 No specific advice provided for this assessment.</p>
+            // <p>💡 No specific advice provided for this assessment.</p>
+            <Advice />
           )}
         </div>
       )}

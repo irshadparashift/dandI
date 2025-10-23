@@ -308,33 +308,6 @@
 //   );
 // }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Chatgpt new sidebar
 // 'use client';
 // import { createPortal } from 'react-dom';
@@ -381,7 +354,6 @@
 //   { iconSrc: '/sidebar/cultureIcon.svg', label: 'Logout', href: '/Support' },
 // ];
 
-
 // //  '/sidebar/leadershipIcon.svg', -
 // //  '/sidebar/cultureIcon.svg',
 // //  '/sidebar/diversityIcon.svg',
@@ -391,7 +363,6 @@
 // //  '/sidebar/swotIcon.svg',
 // //  '/sidebar/talentIcon.svg',
 // //  '/sidebar/BelongingsIcon.svg',
-
 
 // type SidebarContentProps = {
 //   isExpanded: boolean;
@@ -642,7 +613,6 @@
 //   );
 // }
 
-
 // icon code withour color
 
 // 'use client';
@@ -729,8 +699,7 @@
 //       UserSubcription?.data?.flatMap((sub) =>
 //         sub.Apps.map((app: SubscriptionApp) => {
 //           const appName = app.AppId.Name.toLowerCase();
-        
-          
+
 //           return [
 //             app.AppId._id,
 //             {
@@ -958,27 +927,6 @@
 //   );
 // }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 'use client';
 import { createPortal } from 'react-dom';
 import Image from 'next/image';
@@ -1057,54 +1005,53 @@ function SidebarContent({ isExpanded, onLinkClick, currentPath }: SidebarContent
   };
 
   // Colors mapping for each app
- const appColors: Record<string, { baseBg: string; hoverBg: string; text: string }> = {
-   leadership: {
-     baseBg: 'bg-[#8E4B3E]', // deep brick red
-     hoverBg: 'hover:bg-[#A45C4E]', // softer lighter tone
-     text: 'text-white', // better contrast
-   },
-   culture: {
-     baseBg: 'bg-[#6B7FB2]', // slate blue
-     hoverBg: 'hover:bg-[#8095C8]', // lighter hover
-     text: 'text-white',
-   },
-   diversity: {
-     baseBg: 'bg-[#E68A5C]', // warm orange
-     hoverBg: 'hover:bg-[#F09C72]', // subtle lighter
-     text: 'text-white',
-   },
-   equity: {
-     baseBg: 'bg-[#9FAF75]', // olive green
-     hoverBg: 'hover:bg-[#B4C58A]', // lighter muted
-     text: 'text-gray-900', // dark text for contrast
-   },
-   inclusion: {
-     baseBg: 'bg-[#6DC7A6]', // mint green
-     hoverBg: 'hover:bg-[#84D9B9]', // lighter mint
-     text: 'text-gray-900',
-   },
-   organization: {
-     baseBg: 'bg-[#B0B8C5]', // neutral gray-blue
-     hoverBg: 'hover:bg-[#C6CFDB]', // light neutral hover
-     text: 'text-gray-900',
-   },
-   swot: {
-     baseBg: 'bg-[#4F8885]', // teal
-     hoverBg: 'hover:bg-[#66A09D]', // lighter teal
-     text: 'text-white',
-   },
-   talentdevelopment: {
-     baseBg: 'bg-[#56B8C9]', // aqua blue
-     hoverBg: 'hover:bg-[#6FD1E2]', // lighter aqua
-     text: 'text-gray-900',
-   },
-   belongings: {
-     baseBg: 'bg-[#9B8FBF]', // lavender purple
-     hoverBg: 'hover:bg-[#B2A6D6]', // lighter lavender
-     text: 'text-white',
-   },
- };
-
+  const appColors: Record<string, { baseBg: string; hoverBg: string; text: string }> = {
+    leadership: {
+      baseBg: 'bg-[#8E4B3E]', // deep brick red
+      hoverBg: 'hover:bg-[#A45C4E]', // softer lighter tone
+      text: 'text-white', // better contrast
+    },
+    culture: {
+      baseBg: 'bg-[#6B7FB2]', // slate blue
+      hoverBg: 'hover:bg-[#8095C8]', // lighter hover
+      text: 'text-white',
+    },
+    diversity: {
+      baseBg: 'bg-[#E68A5C]', // warm orange
+      hoverBg: 'hover:bg-[#F09C72]', // subtle lighter
+      text: 'text-white',
+    },
+    equity: {
+      baseBg: 'bg-[#9FAF75]', // olive green
+      hoverBg: 'hover:bg-[#B4C58A]', // lighter muted
+      text: 'text-gray-900', // dark text for contrast
+    },
+    inclusion: {
+      baseBg: 'bg-[#6DC7A6]', // mint green
+      hoverBg: 'hover:bg-[#84D9B9]', // lighter mint
+      text: 'text-gray-900',
+    },
+    organization: {
+      baseBg: 'bg-[#B0B8C5]', // neutral gray-blue
+      hoverBg: 'hover:bg-[#C6CFDB]', // light neutral hover
+      text: 'text-gray-900',
+    },
+    swot: {
+      baseBg: 'bg-[#4F8885]', // teal
+      hoverBg: 'hover:bg-[#66A09D]', // lighter teal
+      text: 'text-white',
+    },
+    talentdevelopment: {
+      baseBg: 'bg-[#56B8C9]', // aqua blue
+      hoverBg: 'hover:bg-[#6FD1E2]', // lighter aqua
+      text: 'text-gray-900',
+    },
+    belongings: {
+      baseBg: 'bg-[#9B8FBF]', // lavender purple
+      hoverBg: 'hover:bg-[#B2A6D6]', // lighter lavender
+      text: 'text-white',
+    },
+  };
 
   const navItemsFromSubscription: NavItem[] = Array.from(
     new Map(
@@ -1342,7 +1289,6 @@ export default function Sidebar({ isExpanded, isDesktop, toggleSidebar }: Sideba
     </>
   );
 }
-
 
 // ===================
 // ===================

@@ -259,6 +259,7 @@ import { RegisterRequest, useRegisterUserMutation } from '@/redux/slices/Auth/au
 import { getErrorMessage } from '@/utils/errorHandler';
 import { setCookie } from '@/utils/cookies';
 import { useRouter } from 'next/navigation';
+import { CartItemResponse } from '@/redux/slices/cart/cartApiSlice';
 
 // 1️⃣ Zod schema
 const signUpSchema = z.object({
@@ -270,7 +271,7 @@ const signUpSchema = z.object({
     .min(8, '')
     .max(16, 'Password must be at most 16 characters long')
     .regex(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).+$/,
+      /^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[\W_]).+$/,
       'Password must contain at least one uppercase, lowercase, number, and special char',
     ),
 });
@@ -311,6 +312,14 @@ const textFieldStyle = {
   },
 };
 
+interface LocalCartItem {
+  id: string;
+  name?: string;
+  qty: number;
+  price?: number;
+  subtotal?: number;
+}
+
 const Ind_SignUp = () => {
   const router = useRouter();
   const [registerUser, { isLoading }] = useRegisterUserMutation();
@@ -327,41 +336,6 @@ const Ind_SignUp = () => {
     resolver: zodResolver(signUpSchema),
     mode: 'onBlur',
   });
-
-  // const onSubmit = async (data: SignUpFormData) => {
-  //   try {
-  //     const body: RegisterRequest = {
-  //       Name: data.name,
-  //       Email: data.email,
-  //       Password: data.password,
-  //       // Role: '',
-  //     };
-
-  //     const res = await registerUser(body).unwrap();
-
-  //     if (res.status && res.data) {
-  //       toast.success(res.message);
-
-  //       if (res.data.token) setCookie('UserToken', res.data.token, 7);
-  //       if (res.data._id) setCookie('UserId', res.data._id, 7);
-  //       if (res.data.isSubscribed !== undefined)
-  //       setCookie('isSubscribed', res.data.isSubscribed.toString(), 7);
-
-  //       reset();
-
-  //       // ✅ check redirect intent
-  //       const redirectUrl = localStorage.getItem('redirectAfterAuth');
-  //       if (redirectUrl) {
-  //         localStorage.removeItem('redirectAfterAuth'); // clear after use
-  //         router.push(redirectUrl);
-  //       } else {
-  //         router.push('/ind-login'); // fallback (home/dashboard)
-  //       }
-  //     }
-  //   } catch (err) {
-  //     toast.error(getErrorMessage(err));
-  //   }
-  // };
 
   // components/individuals/Ind_SignUp.tsx - Updated onSubmit function
 
@@ -437,23 +411,16 @@ const Ind_SignUp = () => {
               const backendData = await backendRes.json();
 
               if (backendData.status && backendData.data?.Items) {
-                // Update Redux cart (if you have setCart action)
-                // dispatch(setCart(backendData.data.Items.map(item => ({
-                //   id: item.App._id,
-                //   name: item.App.Name,
-                //   qty: item.Quantity,
-                //   price: item.App.PricePerMonth || 0,
-                //   subtotal: (item.App.PricePerMonth || 0) * item.Quantity
-                // })));
-
                 // For now, update localStorage also
-                const formattedCart = backendData.data.Items.map((item: any) => ({
-                  id: item.App._id,
-                  name: item.App.Name,
-                  qty: item.Quantity,
-                  price: item.App.PricePerMonth || 0,
-                  subtotal: (item.App.PricePerMonth || 0) * item.Quantity,
-                }));
+                const formattedCart: LocalCartItem[] = backendData.data.Items.map(
+                  (item: CartItemResponse) => ({
+                    id: item.App._id,
+                    name: item.App.Name,
+                    qty: item.Quantity,
+                    price: item.App.PricePerMonth || 0,
+                    subtotal: (item.App.PricePerMonth || 0) * item.Quantity,
+                  }),
+                );
 
                 localStorage.setItem('cart', JSON.stringify(formattedCart));
               }

@@ -190,7 +190,6 @@ export default function DashboardLayout({ children }: LayoutProps) {
     isLoading: subscriptionLoading,
     error: subscriptionError,
     isError,
-    refetch,
   } = useGetUserSubscriptionByUserQuery(undefined, {
     skip: !getUserToken(), // Skip query if no token
   });

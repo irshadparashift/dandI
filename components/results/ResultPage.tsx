@@ -951,7 +951,7 @@
 //       if (percentage >= 60) return 'Average';
 
 //       return 'Below Average';
-//     };  
+//     };
 //   return (
 //     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
 //       {/* Header Section */}
@@ -1000,7 +1000,7 @@
 //                   />
 //                 </div>
 //               </div>
-               
+
 //             </div>
 
 //             {/* Radar Chart */}
@@ -1040,7 +1040,7 @@
 //                 {(categoryDetails[selectedCategory] || []).map(
 //                   (item: CategoryItem, index: number) => (
 //                     <div key={index} className="border border-gray-200 rounded-lg p-4">
-                      
+
 //                       <p className="text-sm text-gray-700 mb-3">{item.question}</p>
 //                       <div className="w-full bg-gray-200 h-2 rounded mb-2">
 //                         <div
@@ -1141,7 +1141,7 @@
 //   );
 // }
 
-// radar 
+// radar
 
 // 'use client';
 
@@ -1436,19 +1436,6 @@
 //   );
 // }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 //  correct code
 // 'use client';
 
@@ -1507,7 +1494,7 @@
 //     return resultData.CategoryScores.map((item: any) => ({
 //       category: item.CategoryName.replace(/-/g, ' '), // clean name
 //       value: Math.round(item.Percentage), // actual percentage
-//     }));  
+//     }));
 //   }, [resultData]);
 
 //   // 🔹 Chart.js Radar Chart initialization
@@ -1568,7 +1555,7 @@
 //             color: '#9ca3af',
 //             font: { size: 10, family: 'Inter, sans-serif' },
 //             padding:1,
-            
+
 //           },
 //           grid: { circular: false, color: '#e5e7eb' },
 //           angleLines: { color: '#e5e7eb' },
@@ -1612,8 +1599,6 @@
 //     chartInstanceRef.current?.destroy();
 //   };
 // }, [resultsData]);
-
- 
 
 //   const overallScore = resultData?.Percentage
 //     ? Math.round(resultData.Percentage)
@@ -1817,19 +1802,10 @@
 //     </div>
 //   );
 // }
-
-
-
-
-
-
-
 'use client';
-
 import { RootState } from '@/redux/store';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useEffect, useMemo, useRef, useState } from 'react';
+
+import { useEffect, useMemo, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import {
   Chart,
@@ -1843,7 +1819,6 @@ import {
   ChartConfiguration,
   ChartItem,
 } from 'chart.js';
-
 Chart.register(
   RadarController,
   RadialLinearScale,
@@ -1854,44 +1829,42 @@ Chart.register(
   Legend,
 );
 
+import { ResultData, CategoryScore } from '@/redux/slices/global/globalSlice';
+
 export default function ResultPage() {
-  const resultData = useSelector((state: RootState) => state.global.resultData);
+  // const resultData = useSelector((state: RootState) => state.global.resultData);
+  const resultData = useSelector(
+    (state: RootState) => state.global.resultData,
+  ) as ResultData | null;
+
   const chartRef = useRef<HTMLCanvasElement | null>(null);
   const chartInstanceRef = useRef<Chart | null>(null);
-
   const getScoreColor = (score: number): string => {
     if (score >= 80) return 'text-green-600';
     if (score >= 60) return 'text-blue-600';
     if (score >= 40) return 'text-orange-600';
     return 'text-red-600';
   };
-
   const getProgressColor = (score: number): string => {
     if (score >= 80) return 'bg-green-500';
     if (score >= 60) return 'bg-blue-500';
     if (score >= 40) return 'bg-orange-500';
     return 'bg-red-500';
   };
-
   const resultsData = useMemo(() => {
     if (!resultData?.CategoryScores) return [];
-
-    return resultData.CategoryScores.map((item: any) => ({
+    return resultData.CategoryScores.map((item: CategoryScore) => ({
       category: item.CategoryName.replace(/-/g, ' '), // clean name
       value: Math.round(item.Percentage), // actual percentage
     }));
   }, [resultData]);
-
   useEffect(() => {
     if (!chartRef.current || resultsData.length === 0) return;
-
     const ctx = chartRef.current.getContext('2d');
     if (!ctx) return;
-
     if (chartInstanceRef.current) {
       chartInstanceRef.current.destroy();
     }
-
     const data = {
       labels: resultsData.map((item) => item.category),
       datasets: [
@@ -1909,7 +1882,6 @@ export default function ResultPage() {
         },
       ],
     };
-
     const config: ChartConfiguration<'radar'> = {
       type: 'radar',
       data,
@@ -1921,7 +1893,7 @@ export default function ResultPage() {
           legend: { display: false },
           tooltip: {
             enabled: true,
-            backgroundColor: '#1f2937',
+            backgroundColor: '#1F2937',
             titleColor: '#fff',
             bodyColor: '#fff',
             callbacks: {
@@ -1935,20 +1907,20 @@ export default function ResultPage() {
             max: 100,
             ticks: {
               stepSize: 20, // tick sequence 10,20,30,... visually spaced
-              color: '#9ca3af',
+              color: '#9CA3AF',
               font: { size: 10, family: 'Inter, sans-serif' },
               padding: 1,
             },
-            grid: { circular: false, color: '#e5e7eb' },
-            angleLines: { color: '#e5e7eb' },
+            grid: { circular: false, color: '#E5E7EB' },
+            angleLines: { color: '#E5E7EB' },
             pointLabels: {
-              color: '#6b7280',
+              color: '#6B7280',
               font: { size: 10, family: 'Inter, sans-serif', weight: 600 },
               callback: function (label: string) {
                 const maxChars = 19;
                 if (label.length > maxChars) {
                   const words = label.split(' ');
-                  let lines: string[] = [];
+                  const lines: string[] = [];
                   let currentLine = '';
                   words.forEach((word) => {
                     if ((currentLine + ' ' + word).trim().length > maxChars) {
@@ -1957,7 +1929,7 @@ export default function ResultPage() {
                     } else {
                       currentLine = (currentLine + ' ' + word).trim();
                     }
-                  });                   
+                  });
                   lines.push(currentLine);
                   return lines;
                 } else {
@@ -1973,28 +1945,22 @@ export default function ResultPage() {
         },
       },
     };
-
     chartInstanceRef.current = new Chart(ctx as ChartItem, config);
-
     return () => {
       chartInstanceRef.current?.destroy();
     };
   }, [resultsData]);
-
   const overallScore = resultData?.Percentage
     ? Math.round(resultData.Percentage)
     : Math.round(resultsData.reduce((sum, item) => sum + item.value, 0) / resultsData.length);
-
   const getAverageLabel = (percentage: number) => {
     if (percentage >= 80) return 'Good';
     if (percentage >= 60) return 'Average';
     return 'Below Average';
   };
-
   if (!resultData) {
     return <div className="text-center text-gray-600 mt-10">No result data available</div>;
   }
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
       {/* Header */}
@@ -2010,7 +1976,6 @@ export default function ResultPage() {
           </p>
         </div>
       </div>
-
       {/* Main Content */}
       <div className="max-w-7xl mx-auto py-8 grid grid-cols-1 lg:grid-cols-2 gap-8 px-4 lg:px-0">
         {/* Left Column */}
@@ -2028,8 +1993,10 @@ export default function ResultPage() {
                 style={{ width: `${overallScore}%` }}
               />
             </div>
+            <button className="bg-red-950 text-white py-2 mt-4 px-3 rounded-xl text-lg cursor-pointer">
+              view advice as per your score
+            </button>
           </div>
-
           {/* Chart.js Radar Chart */}
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex-1 flex flex-col items-center">
             <h3 className="text-xl font-semibold text-gray-800 mb-6 text-center">
@@ -2040,7 +2007,6 @@ export default function ResultPage() {
             </div>
           </div>
         </div>
-
         {/* Right Column */}
         <div className="space-y-6 flex flex-col">
           {/* Category Scores */}
@@ -2050,7 +2016,7 @@ export default function ResultPage() {
               className="category-scores-content overflow-y-auto grid sm:grid-cols-1 md:grid-cols-1 gap-5"
               style={{ maxHeight: '100vh' }}
             >
-              {resultData?.CategoryScores?.map((item: any, index: number) => (
+              {resultData?.CategoryScores?.map((item: CategoryScore, index: number) => (
                 <div
                   key={index}
                   className="flex flex-col justify-between border border-gray-200 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow bg-white"

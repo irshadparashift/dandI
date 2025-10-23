@@ -1,5 +1,7 @@
 //redux/slices/global/globalSlice.ts
 
+//redux/slices/global/globalSlice.ts
+
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Question } from '@/redux/slices/questions/questionSlice'; // ✅ import Question type
 
@@ -13,6 +15,7 @@ interface StepInfo {
 // Define ResultData structure
 export interface CategoryScore {
   CategoryId: string;
+  CategoryName: string;
   Score: number;
   MaxScore: number;
   Percentage: number;

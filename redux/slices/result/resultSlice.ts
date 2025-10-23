@@ -5,6 +5,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 // ✅ CategoryScore type
 export interface CategoryScore {
   CategoryId: string;
+  CategoryName: string;
   Score: number;
   MaxScore: number;
   Percentage: number;

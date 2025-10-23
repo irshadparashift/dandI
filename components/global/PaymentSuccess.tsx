@@ -24,7 +24,7 @@ export default function PaymentSuccess() {
       setSessionId(params.get('session_id'));
       console.log(sessionId);
     }
-  }, []);
+  }, [sessionId]);
 
   useEffect(() => {
     const confirmAndRedirect = async () => {
